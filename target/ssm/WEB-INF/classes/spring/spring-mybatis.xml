@@ -1,0 +1,51 @@
+<beans xmlns="http://www.springframework.org/schema/beans"   
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+       xmlns:context="http://www.springframework.org/schema/context"   
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"  
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd  
+            http://www.springframework.org/schema/context  
+            http://www.springframework.org/schema/context/spring-context-3.2.xsd  
+            http://www.springframework.org/schema/tx   
+            http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">  
+       	
+	<!-- mybatis 配置 -->
+	
+	<!-- mybatis SqlSessionFactory -->
+	<bean id="sqlSessionFactory" name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis/sqlmap-config.xml"/>
+		<!-- mapper xml 文件位置 -->
+		<property name="mapperLocations">
+			<list>
+				<!-- 
+				<value>classpath*:config/mybatis/**/*-mapper.xml</value>
+				 -->
+			</list>
+		</property>
+		
+		<!--
+		<property name="typeAliasesPackage" 
+			value="cn.cooperlink.apps.framework.base.entity,cn.cooperlink.apps.filecenter.entity,cn.cooperlink.apps.training.entity" /> 
+	    -->
+	</bean>
+	
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+		<constructor-arg index="1" value="BATCH"/>
+	</bean>
+	
+	<!-- mapper -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 多路径配置
+		<property name="basePackage" value="
+			cn.cooperlink.platform.flow.dao.mapper,
+			cn.cooperlink.platform.oa.dao.mapper" />
+		 -->
+		<property name="basePackage" value="cn.cooperlink.baseplatform.mum"/>
+		<property name="annotationClass" value="cn.cooperlink.spring.extension.Mapper"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
+	
+</beans>

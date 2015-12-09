@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="Public">
+	
+	<sql id="beforePage">
+		<if test="start != null and limit != null">
+			select * from (select al.*,rownum as num from (
+		</if>
+	</sql>
+	
+	<sql id="afterPage">
+		<if test="start != null and limit != null">
+			<![CDATA[)al) where num <= (#{start}+#{limit}) and num > #{start} ]]>
+		</if>
+	</sql>
+	
+</mapper> 

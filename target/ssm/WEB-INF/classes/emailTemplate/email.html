@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>申请服务反馈邮件</title>
+<style>
+*{padding:0;margin:0;font-size:12px;font-weight:normal; font-family:Din,Arial, Helvetica, sans-serif;}
+li{list-style:none;}
+a{ text-decoration:none;}
+em,i{font-style:normal;}
+body,html{-webkit-text-size-adjust:none;}
+body{width:1024px; margin:0 auto;}
+img{ vertical-align:top;}
+.clearfix:after{content:""; display:block; clear:both; visibility:hidden; height:0; line-height:0;}
+.clearfix{zoom:1;}
+.main{width:1024px;margin:0 auto;}
+.content{ background:url(http://www.cooperlink.cn:7180/fpyz/resources/fpyzimage/email.png) no-repeat; height:472px; width:1024px;text-align:center;padding-top:25px;}
+.messageType,#btn,#btn.expBtn,.phone,.logo{ background:url(http://www.cooperlink.cn:7180/fpyz/resources/fpyzimage/email2.png) no-repeat;}
+.footer{height:56px; width:1024px; background:#3598dc;text-align:center;padding-top:54px;}
+.messageType{margin:29px 0 38px 0;line-height:24px;font-size:22px;color:#72c01c; background-position:0 0;padding-left:32px;display:inline-block; font-family:微软雅黑;}
+.corpName{color:#2b96dc;font-size:33px; line-height:34px; font-family:微软雅黑;}
+#btn{margin:62px 0 6px 0;width:182px; height:47px; line-height:47px;font-size:20px; text-align:center;color:#fff;background-position:0 -46px;display:inline-block;}
+#btn.expBtn{background-position:0 -99px;}
+.phone{font-size:14px; line-height:18px;color:#e89489; display:inline-block;background-position:0 -24px;padding-left:30px;}
+.footer p{color:#a5d1f6;font-size:14px; line-height:18px;}
+.logo{ background-position:0 -154px;width:89px; height:57px;margin-left:28px;}
+</style>
+</head>
+
+<body>
+<div class="main">
+	<div class="content">
+    	<div class="logo"></div>
+    	<div class="messageType">
+        	#message#
+        </div>
+        <p class="corpName">#comName#</p>
+        <div><a href="http://www.cooperlink.cn:7180/fpyz/ep/index" class="" id="btn">立即体验</a>
+        </div>
+        <div class="phone">售后服务电话：#servicephone#</div>
+    </div>
+    <div class="footer">
+    	<p>北京酷博灵科发票验真运营团队 </p>
+        <p>Copyright @ 2015 www.cooperlink.cn All rights reserve</p>
+    </div>
+</div>
+</body>
+<script>
+	var oBtn = document.getElementById('btn');
+	oBtn.onmousedown = function(){
+		this.className = 'expBtn';	
+	};
+	oBtn.onmouseup = function(){
+		this.className = '';	
+	};
+</script>
+</html>

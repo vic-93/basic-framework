@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	       xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		            http://www.springframework.org/schema/context  
+            		http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	
+	<!-- 开启  Spring MVC @Controller 注解模式 -->
+	
+	<!-- ResponsBody编码设置。 -->
+	<beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" >  
+		<beans:property name="messageConverters">   
+	        <beans:list>   
+	            <beans:bean class = "org.springframework.http.converter.StringHttpMessageConverter">   
+	               <beans:property name = "supportedMediaTypes">
+	                     <beans:list>
+	                         <beans:value>text/html;charset=UTF-8</beans:value>
+	                    </beans:list>   
+	               </beans:property>   
+	            </beans:bean>   
+	        </beans:list>   
+		 </beans:property>
+	</beans:bean>
+	
+	<!-- 注解驱动 -->
+	<annotation-driven />
+	
+	<!-- /resources/下所有资源的请求直接交由web服务器处理。  -->
+	<resources mapping="/resources/**" location="/resources/" />
+	
+	<!-- 自定义拦截器 
+	<interceptors >
+	   <interceptor>
+	   		<mapping path="/**"/>
+	   		<exclude-mapping path="/resources/**"/>
+	   		<exclude-mapping path="/auth/**"/>
+	   		<exclude-mapping path="/service/**"/>
+	   		<exclude-mapping path="/services/**"/>
+	   		<exclude-mapping path="/index/**"/>
+	   		<beans:bean class="cn.cooperlink.apps.framework.security.aop.PermissionHandlerInterceptor" />
+	   </interceptor>
+	   <interceptor>
+	   		<mapping path="/**"/>
+	   		<exclude-mapping path="/resources/**"/>
+	   		<exclude-mapping path="/auth/**"/>
+	   		<exclude-mapping path="/service/**"/>
+	   		<exclude-mapping path="/services/**"/>
+	   		<exclude-mapping path="/index/**"/>
+	   		<beans:bean class="cn.cooperlink.apps.common.aop.MyControllerInterceptor"></beans:bean>
+	   </interceptor>
+	</interceptors>
+	-->
+	
+	<!-- jsp 视图 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- <beans:property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />  -->
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 设置freeMarker的配置文件路径 -->
+	<beans:bean id="freemarkerConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	    <beans:property name="location" value="classpath:freemarker.properties"/>
+	</beans:bean>
+ 
+	<!-- 配置freeMarker的模板路径 -->
+	<beans:bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+	    <!--property name="freemarkerSettings" ref="freemarkerConfiguration"/-->
+	    <beans:property name="templateLoaderPath">
+	        <beans:value>/WEB-INF/ftl/</beans:value>
+	    </beans:property>
+	    <beans:property name="freemarkerVariables">
+	        <beans:map>
+	            <beans:entry key="xml_escape" value-ref="fmXmlEscape" />
+	        </beans:map>
+	    </beans:property>
+	</beans:bean>
+	
+	<beans:bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
+ 
+	<!-- 配置freeMarker视图解析器 -->
+	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+	    <beans:property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+	    <beans:property name="viewNames" value="*.ftl"/>
+	    <beans:property name="contentType" value="text/html; charset=utf-8"/>
+	    <beans:property name="cache" value="true" />
+	    <beans:property name="prefix" value="" />
+	    <beans:property name="suffix" value="" />
+	    <beans:property name="order" value="2"/>
+	</beans:bean>
+	
+	<!-- 异常处理 
+	<beans:bean id="exceptionResolver" class="cn.cooperlink.apps.framework.core.exception.SpringMVCSimpleMappingExceptionResolver">  
+      <beans:property name="exceptionMappings">   
+        <beans:props>   
+          <beans:prop key="com.jason.exception.SystemException">error/500</beans:prop>   
+          <beans:prop key="com.jason.exception.BusinessException">error/errorpage</beans:prop>  
+          <beans:prop key="java.lang.Exception">error/500</beans:prop>
+       </beans:props>   
+     </beans:property>   
+    </beans:bean>
+    -->
+    
+ 	<!-- 文件上传 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+	<!-- controller 配置 -->
+	<beans:import resource="controllers.xml" />
+
+</beans:beans>
