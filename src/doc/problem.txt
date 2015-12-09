@@ -1,0 +1,22 @@
+问题1：hibernate 和 oracle 出现异常
+		java.lang.ClassCastException: oracle.sql.CLOB cannot be cast to oracle.sql.CLOB
+		Finally it turned out to be a clash between hibernate and ojdbc. I changed the reference to java.sql.Clob. 
+		Hibernate uses java.sql.Clob. This resolved the problem.
+		
+问题2：二位数组扩充，原来位置保持不变
+	public class Array {
+		public static void main(String[] args) {
+			int[][] ary = {{1,2,3},{1,2,3},{1,2,3}};
+			for (int i = 0; i < ary.length; i++) {
+				ary[i]=Arrays.copyOf(ary[i], ary[i].length+1);
+				System.out.println(Arrays.toString(ary[i]));
+			}
+			ary=Arrays.copyOf(ary, ary.length+2);
+			for (int i = 0; i < ary.length; i++) {
+				System.out.println(ary.length);
+			}
+		}
+	}
+	
+问题3：单点登录方式
+	SSO	
